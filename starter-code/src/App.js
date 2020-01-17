@@ -1,13 +1,27 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import "./App.css";
-import { Link } from "react-router-dom"
 import Countrydetail from "./components/Countrydetail.jsx"
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Link } from "react-router-dom";
 import countries from "./countries.json";
+import axios from 'axios';
 
+class App extends Component {
 
-function App() {
+  constructor(){
+        super()
+        this.state = {
+            countries: []
+        }
+    }
+
+  componentDidMount() {
+        axios.get("https://countries.tech-savvy.tech/countries")
+        .then(response => {
+            this.setState({countries: response.data})
+        })
+    }
+
+  render(){
   return (
     <div className="App">
 
@@ -27,7 +41,7 @@ function App() {
             <div class="col-5" className="items">
               <div class="list-group">
                
-               {countries.map((country) =>
+               {this.state.countries.map((country) =>
                 <Link
                   class="list-group-item list-group-item-action active"
                   to={country.cca3}
@@ -40,15 +54,16 @@ function App() {
               </div>
             </div>
             <Countrydetail
-            capital={countries.capital}
-            area={countries.area}
-            borders={countries.borders}
+            capital={this.state.countries.capital}
+            area={this.state.countries.area}
+            borders={this.state.countries.borders}
             />
           </div>
         </div>
       </div>
     </div>
-  );
+    );
+  }
 }
 
 export default App;

@@ -1,6 +1,7 @@
 import React from "react";
 import countries from "../countries.json"
 import { Link } from "react-router-dom"
+import axios from 'axios';
 
 
 export default function Countrydetail(props) {
@@ -8,7 +9,7 @@ export default function Countrydetail(props) {
     
   return (
     <div class="col-7">
-      <h1>France {props.name.common}</h1>
+      <h1>France </h1>
       <table class="table">
         <thead></thead>
         <tbody>
